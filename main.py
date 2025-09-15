@@ -1,4 +1,5 @@
 import requests
+import random
 import json
 import re
 import time
@@ -526,8 +527,9 @@ def main():
                 logger.info("No refill needed")
 
             # Wait before next check
-            logger.info(f"Waiting {service.delay} seconds until next check...")
-            time.sleep(service.delay)
+            delay = random.uniform(service.delay*0.8, service.delay*1.2)
+            logger.info(f"Waiting {delay} seconds until next check...")
+            time.sleep(delay)
 
         except ServiceException as e:
             if "Session expired" in str(e):
