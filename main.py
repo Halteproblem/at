@@ -353,6 +353,11 @@ class AT:
             self.logger.warning("No data packs found in subscriptions")
             return False
 
+        except requests.exceptions.JSONDecodeError as e:
+            self.logger.error(f"Get status failed: {e}")
+            self.logger.error(response.text)
+            return None
+
         except ServiceException as e:
             self.logger.error(f"Get status failed: {e}")
             return None
@@ -511,8 +516,16 @@ def main():
             status = service.get_status()
 
             if status is None:
-                logger.warning("Could not get status, retrying in 60 seconds...")
-                time.sleep(60)
+                service.session.cookies.clear()
+                if login_count > 10:
+                    logger.error(f"Re-login failed {login_count} times, exiting...")
+                    sys.exit()
+                logger.warning("Session expired, attempting to re-login...")
+                if not service.login():
+                    logger.error("Re-login failed, waiting 30 seconds...")
+                    time.sleep(30)
+                else:
+                    login_count = 0
                 continue
             elif status:
                 logger.info("Refill needed - attempting to update status...")
