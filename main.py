@@ -263,6 +263,7 @@ class AT:
                     "amount": self.on_demand_amount_value_uid,
                     "updateOfferResourceID": self.resource_id,
                 },
+                timeout=30
             )
 
             data = response.json()
@@ -294,6 +295,7 @@ class AT:
                 self.session.get,
                 URLS["DASHBOARD_URL"].format(self.customer_id, self.contract_id),
                 headers=self.headers_json,
+                timeout=30
             )
 
             data = response.json()
@@ -374,6 +376,7 @@ class AT:
                 self.session.get,
                 URLS["BASE_URL"],
                 headers=self.headers_html,
+                timeout=30
             )
 
             parsed = urllib.parse.urlparse(response.url)
@@ -384,13 +387,13 @@ class AT:
             # Auth request
             auth_url = URLS["AUTH_URL"].format(urllib.parse.quote(goto_url))
             response = self._handle_request(
-                "LOGIN_AUTH", self.session.post, auth_url, headers=self.headers_json
+                "LOGIN_AUTH", self.session.post, auth_url, headers=self.headers_json, timeout=30
             )
 
             initial_data = response.json()
             auth_id = initial_data["authId"]
             callbacks = initial_data["callbacks"]
-            self.logger.debug(f"Got auth ID: {auth_id}")
+            self.logger.debu g(f"Got auth ID: {auth_id}")
 
             # Solve PoW
             self.pow.extract_pow_params(initial_data)
@@ -404,6 +407,7 @@ class AT:
                 auth_url,
                 json=payload,
                 headers=self.headers_json,
+                timeout=30
             )
 
             success_url = response.json().get("successUrl")
@@ -418,6 +422,7 @@ class AT:
                 self.session.get,
                 success_url,
                 headers=self.headers_html,
+                timeout=30
             )
 
             # Get user data if not already available
@@ -450,6 +455,7 @@ class AT:
             self.session.get,
             URLS["USER_URL"].format(user_id),
             headers=self.headers_json,
+            timeout=30
         )
 
         msidn = response.json().get("telephoneNumber", [None])[0]
@@ -464,6 +470,7 @@ class AT:
             self.session.get,
             URLS["NAVIGATION_URL"].format(msidn),
             headers=self.headers_json,
+            timeout=30
         )
 
         contracts_found = 0
