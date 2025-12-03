@@ -20,4 +20,4 @@ with a maximum speed of 50 MiB/s 1GiB of data can be drained in 20.5s
 
 ### TODO
 
-- [ ] Make display of remaining data more accurate
+- [x] Make display of remaining data more accurate

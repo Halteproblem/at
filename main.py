@@ -333,20 +333,20 @@ class AT:
                         left = allocated - used
 
                         unit = "GiB" if left >= 1048576 else "MiB"
-                        amount = left >> 20 if left >= 1048576 else left >> 10
+                        amount = left / 1048576 if left >= 1048576 else left / 1024
 
                         can_refill = left < refill_threshold
                         threshold_display = (
-                            refill_threshold >> 20
+                            refill_threshold / 1048576
                             if refill_threshold >= 1048576
-                            else refill_threshold >> 10
+                            else refill_threshold / 1024
                         )
                         threshold_unit = "GiB" if refill_threshold >= 1048576 else "MiB"
 
                         self.logger.info(f"Data status - Subscription: {offer_name}")
-                        self.logger.info(f"Data remaining: {amount} {unit}")
+                        self.logger.info(f"Data remaining: {amount:.2f} {unit}")
                         self.logger.info(
-                            f"Refill threshold: {threshold_display} {threshold_unit}"
+                            f"Refill threshold: {threshold_display:.2f} {threshold_unit}"
                         )
                         self.logger.info(f"Can refill: {'Yes' if can_refill else 'No'}")
 
@@ -393,7 +393,7 @@ class AT:
             initial_data = response.json()
             auth_id = initial_data["authId"]
             callbacks = initial_data["callbacks"]
-            self.logger.debu g(f"Got auth ID: {auth_id}")
+            self.logger.debug(f"Got auth ID: {auth_id}")
 
             # Solve PoW
             self.pow.extract_pow_params(initial_data)
