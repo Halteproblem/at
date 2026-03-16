@@ -61,7 +61,7 @@ logger = logging.getLogger(__name__)
 _ENCODED_URLS = {
     "BASE_URL": b"aHR0cHM6Ly93d3cuYWxkaXRhbGsta3VuZGVucG9ydGFsLmRlLw==",
     "AUTH_URL": b"aHR0cHM6Ly9sb2dpbi5hbGRpdGFsay1rdW5kZW5iZXRyZXV1bmcuZGUvc2lnbmluL2pzb24vcmVhbG1zL3Jvb3QvcmVhbG1zL2FsZGl0YWxrL2F1dGhlbnRpY2F0ZT9nb3RvPXt9JnNlcnZpY2U9TG9naW4mbG9jYWxlPWRlJmF1dGhJbmRleFR5cGU9c2VydmljZSZhdXRoSW5kZXhWYWx1ZT1Mb2dpbg==",
-    "DASHBOARD_URL": b"aHR0cHM6Ly93d3cuYWxkaXRhbGsta3VuZGVucG9ydGFsLmRlL3Njcy9iZmYvc2NzLTIwOS1zZWxmY2FyZS1kYXNoYm9hcmQtYmZmL3NlbGZjYXJlLWRhc2hib2FyZC92MS9vZmZlcnMve30/d2FybmluZ0RheXM9MjgmY29udHJhY3RJZD17fSZwcm9kdWN0VHlwZT1Nb2JpbGVfUHJvZHVjdF9PZmZlcg==",
+    "DASHBOARD_URL": b'aHR0cHM6Ly93d3cuYWxkaXRhbGsta3VuZGVucG9ydGFsLmRlL3Njcy9iZmYvc2NzLTIwOS1zZWxmY2FyZS1kYXNoYm9hcmQtYmZmL3NlbGZjYXJlLWRhc2hib2FyZC92MS9vZmZlcnM_d2FybmluZ0RheXM9MjgmY29udHJhY3RJZD17fSZwcm9kdWN0VHlwZT1Nb2JpbGVfUHJvZHVjdF9PZmZlcg==',
     "UPDATE_URL": b"aHR0cHM6Ly93d3cuYWxkaXRhbGsta3VuZGVucG9ydGFsLmRlL3Njcy9iZmYvc2NzLTIwOS1zZWxmY2FyZS1kYXNoYm9hcmQtYmZmL3NlbGZjYXJlLWRhc2hib2FyZC92MS9vZmZlci91cGRhdGVVbmxpbWl0ZWQ=",
     "USER_URL": b"aHR0cHM6Ly9sb2dpbi5hbGRpdGFsay1rdW5kZW5iZXRyZXV1bmcuZGUvc2lnbmluL2pzb24vcmVhbG1zL3Jvb3QvcmVhbG1zL2FsZGl0YWxrL3VzZXJzL3t9",
     "NAVIGATION_URL": b"aHR0cHM6Ly93d3cuYWxkaXRhbGsta3VuZGVucG9ydGFsLmRlL3Njcy9iZmYvc2NzLTIwNy1jdXN0b21lci1tYXN0ZXItZGF0YS1iZmYvY3VzdG9tZXItbWFzdGVyLWRhdGEvdjEvbmF2aWdhdGlvbi1saXN0P21zaXNkbj17fQ==",
@@ -293,7 +293,7 @@ class AT:
             response = self._handle_request(
                 "GET_STATUS",
                 self.session.get,
-                URLS["DASHBOARD_URL"].format(self.customer_id, self.contract_id),
+                URLS["DASHBOARD_URL"].format(self.contract_id),
                 headers=self.headers_json,
                 timeout=30
             )
